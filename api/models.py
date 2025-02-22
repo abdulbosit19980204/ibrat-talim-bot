@@ -23,8 +23,13 @@ class Filial(models.Model):
 class FilialDetail(models.Model):
     filial = models.OneToOneField(Filial, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
-    rasm = models.ImageField(upload_to="rasm")
+    rasm_file = models.ImageField(upload_to="rasm")
+    rasm = models.TextField(
+        default="https://avatars.mds.yandex.net/get-altay/5476806/2a00000180c6aee71376d9aea3dc55862bd0/L_height")
     manzil = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.filial.name
 
 
 class Feedback(models.Model):

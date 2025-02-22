@@ -8,7 +8,7 @@ from bot.buttons import (
     get_back_button,
     get_phone_button
 )
-from bot.api import (get_users, create_user, create_feedback)
+from bot.api import (get_users, create_user, create_feedback, get_filiallar)
 
 # Client yaratish
 client = TelegramClient("ibrat_talim_bot", API_ID, API_HASH).start(bot_token=TOKEN)
@@ -75,7 +75,7 @@ async def message_handler(event):
             if message == "📍 Filiallar":
                 await event.respond(
                     "🏢 Ibrat Ta'lim filiallari",
-                    buttons=get_filial_buttons(FILIALAR.keys())
+                    buttons=get_filial_buttons(get_filiallar().keys())
                 )
 
             elif message.startswith("📍") and "filiali" in message:
