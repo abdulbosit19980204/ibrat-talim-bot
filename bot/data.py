@@ -25,8 +25,11 @@ YONALISHLAR = {
 }
 
 PRICES = {
-    "Xorijiy Tillar": "250 000 so'm",
+    "Xorijiy Tillar": "\n Boshlang'ich daraja – 250 ming so'm\n"
+                      " IELTS va CEFR – 400 ming so'm\n",
     "Aniq Fanlar": "250 000 so'm",
     "Tabiy Fanlar": "250 000 so'm",
-    "Zamonaviy Fanlar": "500 000 so'm"
+    "Zamonaviy Fanlar": "\n Kompyuter savodxonligi – 250 ming so'm\n"
+                        " Dasturlash va Grafik dizayn – 500 ming so'm",
+
 }
