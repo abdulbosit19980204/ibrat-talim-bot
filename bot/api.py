@@ -54,3 +54,10 @@ def get_filiallar():
     for j in response:
         d[j["name"]] = j['filial_detail']
     return d
+
+
+def get_yonalishlar():
+    d = {}
+    url = f'{BASE_URL}yonalishlar/'
+    response = requests.get(url=url).json()
+    return response

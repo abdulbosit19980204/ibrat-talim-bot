@@ -32,6 +32,30 @@ class FilialDetail(models.Model):
         return self.filial.name
 
 
+# YONALISHLAR = {
+#     "🗣Xorijiy Tillar": ["🏴󠁧󠁢󠁥󠁮󠁧󠁿Ingiliz", "🇷🇺Rus", "🇰🇷Koreys", "🇩🇪Nemis"],
+#     "📚Aniq Fanlar": ["➕Matematika", "⚡Fizika"],
+#     "📚Tabiy Fanlar": ["🧪Kimyo", "🐍Biologiya"],
+#     "💻Zamonaviy Fanlar": ["Kompyuter Savodxonligi", "Mobilografiya | SMM", "Grafik Dizayn", "Dasturlash"]
+# }
+
+class Yonalishlar(models.Model):
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Fanlar(models.Model):
+    name = models.CharField(max_length=255)
+    yonalishlar = models.ForeignKey(Yonalishlar, on_delete=models.SET_NULL, null=True, related_name="fanlar")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Feedback(models.Model):
     user_id = models.CharField(max_length=255)
     body = models.CharField(max_length=255)

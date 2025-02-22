@@ -8,7 +8,7 @@ from bot.buttons import (
     get_back_button,
     get_phone_button
 )
-from bot.api import (get_users, create_user, create_feedback, get_filiallar)
+from bot.api import (get_users, create_user, create_feedback, get_filiallar, get_yonalishlar)
 
 # Client yaratish
 client = TelegramClient("ibrat_talim_bot", API_ID, API_HASH).start(bot_token=TOKEN)
@@ -91,18 +91,18 @@ async def message_handler(event):
             elif message == "📚 Mavjud yo'nalishlar":
                 await event.respond(
                     "📚 Quyidagi yo'nalishlardan birini tanlang:",
-                    buttons=get_yonalish_buttons(YONALISHLAR.keys())
+                    buttons=get_yonalish_buttons(get_yonalishlar().keys())
                 )
 
-            elif message in YONALISHLAR:
+            elif message in get_yonalishlar():
                 await event.respond(
                     f"📚 {message} yo'nalishi bo'yicha fanlar:",
-                    buttons=get_fanlar_buttons(YONALISHLAR[message])
+                    buttons=get_fanlar_buttons(get_yonalishlar()[message])
                 )
 
             elif message.startswith("🖋 "):
                 fan = message[2:].strip()
-                for yonalish, fanlar in YONALISHLAR.items():
+                for yonalish, fanlar in get_yonalishlar().items():
                     if fan in fanlar:
                         await event.respond(
                             f"✅ Siz {fan} kursiga yozildingiz.\n"
