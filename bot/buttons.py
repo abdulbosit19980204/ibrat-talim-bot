@@ -6,7 +6,7 @@ def get_main_menu():
     return [
         [Button.text("📍 Filiallar", resize=True), Button.text("📚 Mavjud yo'nalishlar", resize=True)],
         [Button.text("💰 Kurs narxlari", resize=True), Button.text("🎁 Chegirmalar", resize=True)],
-        [Button.text(" ☎️ +998 91 111 22 33", selective=False)],
+        [Button.text(" ☎️  +998932151035", selective=False)],
     ]
 
 
@@ -42,7 +42,7 @@ def get_fanlar_buttons(fanlar):
     buttons = []
     row = []
     for fan in fanlar:
-        row.append(Button.text(f"{fan}", resize=True))
+        row.append(Button.text(f"🖋 {fan}", resize=True))
         if len(row) == 3:
             buttons.append(row)
             row = []

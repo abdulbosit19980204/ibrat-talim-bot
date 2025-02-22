@@ -8,6 +8,7 @@ from bot.buttons import (
     get_back_button,
     get_phone_button
 )
+from bot.api import (get_users, create_user, create_feedback)
 
 # Client yaratish
 client = TelegramClient("ibrat_talim_bot", API_ID, API_HASH).start(bot_token=TOKEN)
@@ -24,13 +25,19 @@ async def start_handler(event):
         user_id = event.sender_id
         users[user_id] = {}
         user_states[user_id] = "waiting_for_name"
-
-        await event.respond(
-            "🔸 Assalomu alaykum, 🏆 Ibrat ta'lim o'quv markazining maxsus telegram botiga xush kelibsiz!"
-        )
-        await event.respond(
-            "1️⃣ Ism va Familiyangizni lotin alifbosida to'liq kiriting.\n\n(Masalan: Saidakbar Mehmonxo'jayev)"
-        )
+        is_created = create_user(username=event.sender.username, user_id=event.sender.id,
+                                 name=event.sender.first_name, surname=event.sender.last_name).get('id', None)
+        if is_created is not None:
+            await event.respond(
+                "🔸 Assalomu alaykum, 🏆 Ibrat ta'lim o'quv markazining maxsus telegram botiga xush kelibsiz!"
+            )
+            await event.respond(
+                "1️⃣ Ism va Familiyangizni lotin alifbosida to'liq kiriting.\n\n(Masalan: Saidakbar Mehmonxo'jayev)"
+            )
+        else:
+            await event.respond(
+                "Siz allaqachon botdan royxatdan otkansiz"
+            )
     except Exception as e:
         print(f"Start handler error: {e}")
 
@@ -45,7 +52,6 @@ async def message_handler(event):
         # Ro'yxatdan o'tish jarayoni
         if user_states.get(user_id) == "waiting_for_name":
             users[user_id]["name"] = message
-            print(users[user_id]["name"])
             user_states[user_id] = "waiting_for_phone"
             await event.respond(
                 "2️⃣ 👨🏻‍💻 \"Shaxsiy kabinet\" ochish uchun raqamingizni tasdiqlashingiz lozim 👇",
@@ -94,7 +100,7 @@ async def message_handler(event):
                     buttons=get_fanlar_buttons(YONALISHLAR[message])
                 )
 
-            elif message.startswith("🟡 "):
+            elif message.startswith("🖋 "):
                 fan = message[2:].strip()
                 for yonalish, fanlar in YONALISHLAR.items():
                     if fan in fanlar:
