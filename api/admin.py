@@ -13,7 +13,7 @@ class RichTextAdmin(admin.ModelAdmin):
 class BotUserDataAdmin(admin.ModelAdmin):
     model = BotUser
     list_display = ('id', 'name', 'surname', 'username', 'user_id', 'phone_number')
-    list_display_links = ('id', 'user_name', 'phone_number')
+    list_display_links = ('id', 'name', 'username', 'phone_number')
     search_fields = ('phone_number', 'username', 'name', 'surname')
     list_filter = ('phone_number',)
     fieldsets = (
@@ -22,11 +22,30 @@ class BotUserDataAdmin(admin.ModelAdmin):
     )
 
 
+class FililaDetailDataAdmin(admin.ModelAdmin):
+    model = FilialDetail
+    list_display = ('id', 'filial__name', 'author__username', 'manzil')
+    list_display_links = ('id', 'filial__name',)
+    search_fields = ('filial__name', 'manzil',)
+    list_filter = ('filial__name',)
+    formfield_overrides = {
+        models.TextField: {"widget": CKEditorWidget()},  # RichText qo‘shish
+    }
+
+
+class YonalishlarDataAdmin(admin.ModelAdmin):
+    model = Yonalishlar
+    list_display = ('id', 'name', 'author__username', 'created_at')
+    list_display_links = ('id', 'name',)
+    search_fields = ('name', 'author__username',)
+    list_filter = ('created_at',)
+
+
 admin.site.register(BotUser, BotUserDataAdmin)
 admin.site.register(Feedback)
 admin.site.register(Filial)
-admin.site.register(FilialDetail, RichTextAdmin)
-admin.site.register(Yonalishlar)
+admin.site.register(FilialDetail, FililaDetailDataAdmin)
+admin.site.register(Yonalishlar, YonalishlarDataAdmin)
 admin.site.register(Fanlar)
 admin.site.register(Price, RichTextAdmin)
 admin.site.register(Chegirmalar)
