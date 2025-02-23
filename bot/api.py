@@ -2,7 +2,8 @@ from urllib import response
 
 import requests
 
-BASE_URL = 'http://127.0.0.1:8000/api/v1/'
+# BASE_URL = 'http://127.0.0.1:8000/api/v1/'
+BASE_URL = 'https://ibrat-talim.yacdem.uz/api/v1/'
 
 
 def create_user(username, user_id, name, surname, phone_number):
