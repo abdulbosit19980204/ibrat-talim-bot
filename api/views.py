@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from .models import BotUser, Feedback, Filial, FilialDetail, Yonalishlar, Fanlar, Price
+from .models import BotUser, Feedback, Filial, FilialDetail, Yonalishlar, Fanlar, Price, Chegirmalar
 from .serializers import BotUserSerializer, FeedbackSerializer, FilialSerializer, FilialDetailSerializer, \
-    YonalishlarSerializer, FanlarSerializer, PriceSerializer
+    YonalishlarSerializer, FanlarSerializer, PriceSerializer, ChegirmaSerializer
 
 
 class BotUserViewSet(viewsets.ModelViewSet):
@@ -51,3 +51,8 @@ class FanlarViewSet(viewsets.ModelViewSet):
 class PriceViewSet(viewsets.ModelViewSet):
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
+
+
+class ChegirmaViewSet(viewsets.ModelViewSet):
+    queryset = Chegirmalar.objects.filter(is_active=True)
+    serializer_class = ChegirmaSerializer

@@ -67,3 +67,35 @@ def get_price():
     url = f'{BASE_URL}prices/'
     response = requests.get(url=url).json()
     return response
+
+
+def get_chegirma():
+    d = {}
+    url = f'{BASE_URL}chegirmalar/'
+    response = requests.get(url=url).json()
+    return response
+
+
+def format_chegirmalar(chegirmalar):
+    text = "🎁 <b>Bizning maxsus chegirmalar!</b>\n\n"
+
+    for chegirma in chegirmalar:
+        chegirma_miqdori = ""
+        if chegirma["is_foiz"]:
+            chegirma_miqdori = f"<b>{chegirma['miqdori']}%</b> chegirma"
+        elif chegirma["is_miqdor"]:
+            chegirma_miqdori = f"<b>{int(chegirma['miqdori']):,} UZS</b> chegirma".replace(",", " ")
+
+        fanlar_text = ", ".join([fan["name"] for fan in chegirma["fan"]])
+
+        text += f"🔹 <b>{chegirma['name']}</b>\n"
+        text += f"📚 <b>Fanlar:</b> {fanlar_text}\n"
+        text += f"💰 {chegirma_miqdori}\n"
+        text += "📅 <b>Muddati:</b> "
+        if chegirma["ended_at"]:
+            text += f"<b>{chegirma['ended_at'][:10]}</b>\n"
+        else:
+            text += "<b>Cheklovsiz!</b>\n"
+        text += "➖➖➖➖➖➖➖➖\n"
+
+    return text

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.models import BotUser, Feedback, Filial, FilialDetail, Yonalishlar, Fanlar, Price
+from api.models import BotUser, Feedback, Filial, FilialDetail, Yonalishlar, Fanlar, Price, Chegirmalar
 from ckeditor.widgets import CKEditorWidget
 from django.db import models
 
@@ -17,3 +17,4 @@ admin.site.register(FilialDetail, RichTextAdmin)
 admin.site.register(Yonalishlar)
 admin.site.register(Fanlar)
 admin.site.register(Price, RichTextAdmin)
+admin.site.register(Chegirmalar)

@@ -8,7 +8,7 @@ from bot.buttons import (
     get_back_button,
     get_phone_button
 )
-from bot.api import (create_user, get_price, get_filiallar, get_yonalishlar)
+from bot.api import (create_user, get_price, get_filiallar, get_yonalishlar, get_chegirma, format_chegirmalar)
 
 # Client yaratish
 client = TelegramClient("ibrat_talim_bot", API_ID, API_HASH).start(bot_token=TOKEN)
@@ -130,13 +130,11 @@ async def message_handler(event):
                 await event.respond(narxlar_text, parse_mode="HTML", buttons=get_back_button())
 
             elif message == "🎁 Chegirmalar":
-                await event.respond(
-                    "🎁 Bizning chegirmalar:\n\n"
-                    "🔸 Bitta oiladan 2 va undan ortiq farzandlar uchun – 20% doimiy chegirma\n"
-                    "🔸 Kursni endigina boshlayotganlar uchun – 20% birinchi oy uchun chegirma\n"
-                    "🔸 Barcha kurslarimizga yozilganlar uchun – 30% chegirma",
-                    buttons=get_back_button()
-                )
+                # Foydalanish
+                chegirmalar = get_chegirma()
+                chegirmalar_text = format_chegirmalar(chegirmalar)
+
+                await event.respond(chegirmalar_text, parse_mode="HTML", buttons=get_back_button())
 
             elif message == "🔙 Ortga":
                 await event.respond("🏠 Asosiy menyu", buttons=get_main_menu())

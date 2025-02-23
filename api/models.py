@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from ckeditor.fields import RichTextField
 
 
@@ -58,6 +59,22 @@ class Price(models.Model):
 
     def __str__(self):
         return self.fan.name
+
+
+class Chegirmalar(models.Model):
+    name = models.CharField(max_length=255)
+    fan = models.ManyToManyField(Fanlar, null=True, related_name="chegirma")
+    is_foiz = models.BooleanField(default=True)
+    is_miqdor = models.BooleanField(default=False)
+    miqdori = models.FloatField(default=0)
+    started_at = models.DateTimeField(default=timezone.now)
+    ended_at = models.DateTimeField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Feedback(models.Model):
