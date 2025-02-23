@@ -4,7 +4,7 @@ from bot.api import get_filiallar, get_yonalishlar
 TOKEN = "7740531471:AAHckXn4OvZ0kLbTuWWSxfQ3xyYBZhO0zoM"
 API_ID = "27668593"
 API_HASH = "db44de3510fb53c30375bfce090989d9"
-
+PHONE = +998999992334
 # Bot ma'lumotlari
 FILIALAR = get_filiallar()
 # FILIALAR = {
