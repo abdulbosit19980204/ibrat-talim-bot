@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from ckeditor.fields import RichTextField
@@ -16,6 +17,7 @@ class BotUser(models.Model):
 
 class Filial(models.Model):  # models.Model qayta yozilmaydi
     name = models.CharField(max_length=255)
+    author = models.ForeignKey(User, related_name='filial_author', on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -24,6 +26,7 @@ class Filial(models.Model):  # models.Model qayta yozilmaydi
 
 class FilialDetail(models.Model):
     filial = models.OneToOneField(Filial, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='filial_detail_author', on_delete=models.CASCADE)
     description = models.TextField()
     rasm_file = models.ImageField(upload_to="rasm")
     rasm = models.CharField(max_length=500,
@@ -36,6 +39,8 @@ class FilialDetail(models.Model):
 
 class Yonalishlar(models.Model):
     name = models.CharField(max_length=255)
+    author = models.ForeignKey(User, related_name='yonalish_author', on_delete=models.CASCADE)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -44,6 +49,8 @@ class Yonalishlar(models.Model):
 
 class Fanlar(models.Model):
     name = models.CharField(max_length=255)
+    author = models.ForeignKey(User, related_name='filials', on_delete=models.CASCADE)
+
     yonalishlar = models.ForeignKey(Yonalishlar, on_delete=models.SET_NULL, null=True, related_name="fanlar")
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
@@ -54,6 +61,8 @@ class Fanlar(models.Model):
 
 class Price(models.Model):
     fan = models.ForeignKey(Fanlar, on_delete=models.SET_NULL, null=True, related_name="price")
+    author = models.ForeignKey(User, related_name='price_author', on_delete=models.CASCADE)
+
     price = models.FloatField()
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -64,6 +73,7 @@ class Price(models.Model):
 
 class Chegirmalar(models.Model):
     name = models.CharField(max_length=255)
+    author = models.ForeignKey(User, related_name='chegirma_author', on_delete=models.CASCADE)
     fan = models.ManyToManyField(Fanlar, null=True, related_name="chegirma")
     is_foiz = models.BooleanField(default=True)
     is_miqdor = models.BooleanField(default=False)

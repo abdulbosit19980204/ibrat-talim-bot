@@ -8,7 +8,14 @@ from bot.buttons import (
     get_back_button,
     get_phone_button
 )
-from bot.api import (create_user, get_price, get_filiallar, get_yonalishlar, get_chegirma, format_chegirmalar)
+from bot.api import (
+    create_user,
+    update_user_phone,
+    get_price,
+    get_filiallar,
+    get_yonalishlar,
+    get_chegirma,
+    format_chegirmalar)
 
 # Client yaratish
 client = TelegramClient("ibrat_talim_bot", API_ID, API_HASH).start(bot_token=TOKEN)
@@ -26,7 +33,8 @@ async def start_handler(event):
         users[user_id] = {}
         user_states[user_id] = "waiting_for_name"
         is_created = create_user(username=event.sender.username, user_id=event.sender.id,
-                                 name=event.sender.first_name, surname=event.sender.last_name).get('id', None)
+                                 name=event.sender.first_name, surname=event.sender.last_name,
+                                 phone_number=event.sender.phone).get('id', None)
         if is_created is not None:
             await event.respond(
                 "🔸 Assalomu alaykum, 🏆 Ibrat ta'lim o'quv markazining maxsus telegram botiga xush kelibsiz!"
@@ -60,7 +68,7 @@ async def message_handler(event):
 
         if user_states.get(user_id) == "waiting_for_phone" and event.message.contact:
             users[user_id]["phone"] = event.message.contact.phone_number
-            print(event.message.contact)
+            print(update_user_phone(user_id, event.message.contact.phone_number))
             user_states[user_id] = "registered"
             await event.respond(
                 "🎉 Tabriklaymiz, Siz muvafaqqiyatli ro'yxatdan o'tdingiz!\n\n"

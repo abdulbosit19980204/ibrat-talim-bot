@@ -31,10 +31,16 @@ def get_users():
     # print(response.status_code, response.json())
     return response.json()
 
-def update_user_phone():
-    url = f'{BASE_URL}users/'
-    response = requests.get(url=url)
-    return response.json()
+
+def update_user_phone(user_id, phone_number):
+    users = get_users()
+    for user in users:
+        if str(user['user_id']) == str(user_id):
+            url = f'{BASE_URL}users/{user['id']}/'
+            user['phone_number'] = phone_number
+            response = requests.put(url=url, json=user)
+            return response.json()
+
 
 # get_users()
 

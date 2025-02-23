@@ -31,7 +31,7 @@ JAZZMIN_SETTINGS = {
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
-    "search_model": ["api.BotUser", "api.Fanlar"],
+    # "search_model": ["api.BotUser", "api.Fanlar"],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -55,6 +55,7 @@ JAZZMIN_SETTINGS = {
         # App with dropdown menu to all its models pages (Permissions checked against models)
         {"name": "Fanlar", "url": "/admin/api/fanlar/", "permissions": ["auth.view_user"]},
         {"name": "Filiallar", "url": "/admin/api/filial/", "permissions": ["auth.view_user"]},
+        {"name": "Chegirmalar", "url": "/admin/api/chegirmalar/", "permissions": ["auth.view_user"]},
     ],
 
     #############
