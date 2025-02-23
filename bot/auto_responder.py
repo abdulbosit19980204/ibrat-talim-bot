@@ -87,11 +87,11 @@ NAMOZ_HADISLARI = [
 
 # Namoz vaqtlari
 NAMOZ_VAQTLARI = {
-    "Bomdod": time(5, 0),
-    "Peshin": time(12, 30),
-    "Asr": time(16, 49),
-    "Shom": time(18, 30),
-    "Xufton": time(20, 00)
+    "Bomdod": time(6, 30),
+    "Peshin": time(13, 00),
+    "Asr": time(16, 30),
+    "Shom": time(18, 15),
+    "Xufton": time(19, 30)
 }
 
 # Har bir hisob uchun alohida last_response_time
@@ -114,7 +114,7 @@ def generate_response(shablonlar, sozlar, emojilar, namoz_nomi=None, oyat_hadis=
 
 def is_night_time():
     now = datetime.now().time()
-    return now >= time(20, 0) or now <= time(9, 30)
+    return now >= time(20, 0) or now <= time(6, 30)
 
 
 def is_morning_study_time():
