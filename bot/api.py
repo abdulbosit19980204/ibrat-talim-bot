@@ -61,3 +61,9 @@ def get_yonalishlar():
     url = f'{BASE_URL}yonalishlar/'
     response = requests.get(url=url).json()
     return response
+
+
+def get_price():
+    url = f'{BASE_URL}prices/'
+    response = requests.get(url=url).json()
+    return response

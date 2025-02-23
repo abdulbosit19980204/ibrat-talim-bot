@@ -8,7 +8,7 @@ from bot.buttons import (
     get_back_button,
     get_phone_button
 )
-from bot.api import (get_users, create_user, create_feedback, get_filiallar, get_yonalishlar)
+from bot.api import (create_user, get_price, get_filiallar, get_yonalishlar)
 
 # Client yaratish
 client = TelegramClient("ibrat_talim_bot", API_ID, API_HASH).start(bot_token=TOKEN)
@@ -80,11 +80,11 @@ async def message_handler(event):
 
             elif message.startswith("📍") and "filiali" in message:
                 filial_name = message[2:].replace(" filiali", "").strip()
-                if filial_name in FILIALAR:
-                    filial = FILIALAR[filial_name]
+                if filial_name in get_filiallar():
+                    filial = get_filiallar()[filial_name]
                     await event.respond(
                         f"📍 {filial_name} filiali\n\n{filial['description']}\n\nManzil: {filial.get('manzil', '')}",
-                        file=filial['rasm'],
+                        file=filial['rasm'], parse_mode="HTML",
                         buttons=get_back_button()
                     )
 
@@ -114,9 +114,14 @@ async def message_handler(event):
 
             elif message == "💰 Kurs narxlari":
                 narxlar_text = "💰 Kurs narxlari:\n\n"
-                for yonalish, narx in PRICES.items():
-                    narxlar_text += f"📌 {yonalish}: {narx}\n"
-                await event.respond(narxlar_text, buttons=get_back_button())
+                for i in get_price():
+                    fan_nomi = i["fan"]["name"]  # Fan nomini to'g'ri olish
+                    narx = i["price"]
+                    izoh = i["comment"] if "comment" in i else ""
+
+                    narxlar_text += f"📌 <b>{fan_nomi}</b>: <i>{narx}</i> UZS\n{izoh}\n\n"
+
+                await event.respond(narxlar_text, parse_mode="HTML", buttons=get_back_button())
 
             elif message == "🎁 Chegirmalar":
                 await event.respond(

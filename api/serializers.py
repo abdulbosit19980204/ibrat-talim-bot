@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Feedback, BotUser, Filial, FilialDetail, Fanlar, Yonalishlar
+from api.models import Feedback, BotUser, Filial, FilialDetail, Fanlar, Yonalishlar, Price
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
@@ -40,3 +40,11 @@ class YonalishlarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Yonalishlar
         fields = ['name', 'fanlar']
+
+
+class PriceSerializer(serializers.ModelSerializer):
+    fan = FanlarSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Price
+        fields = ['fan', 'price', 'comment']
