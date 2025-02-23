@@ -1,6 +1,6 @@
 from telethon import TelegramClient, events, Button
-from bot.data import TOKEN, API_ID, API_HASH, FILIALAR, YONALISHLAR, PRICES
-from bot.buttons import (
+from .data import TOKEN, API_ID, API_HASH, FILIALAR, YONALISHLAR, PRICES
+from .buttons import (
     get_main_menu,
     get_filial_buttons,
     get_yonalish_buttons,
