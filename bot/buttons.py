@@ -6,7 +6,7 @@ def get_main_menu():
     return [
         [Button.text("📍 Filiallar", resize=True), Button.text("📚 Mavjud yo'nalishlar", resize=True)],
         [Button.text("💰 Kurs narxlari", resize=True), Button.text("🎁 Chegirmalar", resize=True)],
-        [Button.text(" ☎️  +998932151035", selective=False)],
+        [Button.text(" ☎️  +998932151035", resize=True), ],
     ]
 
 

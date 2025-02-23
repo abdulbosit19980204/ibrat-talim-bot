@@ -31,9 +31,9 @@ async def start_handler(event):
             await event.respond(
                 "🔸 Assalomu alaykum, 🏆 Ibrat ta'lim o'quv markazining maxsus telegram botiga xush kelibsiz!"
             )
-            await event.respond(
-                "1️⃣ Ism va Familiyangizni lotin alifbosida to'liq kiriting.\n\n(Masalan: Saidakbar Mehmonxo'jayev)"
-            )
+            # await event.respond(
+            #     "1️⃣ Ism va Familiyangizni lotin alifbosida to'liq kiriting.\n\n(Masalan: Saidakbar Mehmonxo'jayev)"
+            # )
         else:
             await event.respond(
                 "Siz allaqachon botdan royxatdan otkansiz"
@@ -48,7 +48,6 @@ async def message_handler(event):
     try:
         user_id = event.sender_id
         message = event.raw_text.strip()
-
         # Ro'yxatdan o'tish jarayoni
         if user_states.get(user_id) == "waiting_for_name":
             users[user_id]["name"] = message
@@ -61,6 +60,7 @@ async def message_handler(event):
 
         if user_states.get(user_id) == "waiting_for_phone" and event.message.contact:
             users[user_id]["phone"] = event.message.contact.phone_number
+            print(event.message.contact)
             user_states[user_id] = "registered"
             await event.respond(
                 "🎉 Tabriklaymiz, Siz muvafaqqiyatli ro'yxatdan o'tdingiz!\n\n"

@@ -5,13 +5,14 @@ import requests
 BASE_URL = 'http://127.0.0.1:8000/api/v1/'
 
 
-def create_user(username, user_id, name, surname):
+def create_user(username, user_id, name, surname, phone_number):
     url = f'{BASE_URL}users/'
     data = {
         "username": username,
         "user_id": user_id,
         "name": name,
         "surname": surname,
+        "phone_number": phone_number,
     }
     headers = {"Content-Type": "application/json"}
 
@@ -30,6 +31,10 @@ def get_users():
     # print(response.status_code, response.json())
     return response.json()
 
+def update_user_phone():
+    url = f'{BASE_URL}users/'
+    response = requests.get(url=url)
+    return response.json()
 
 # get_users()
 
