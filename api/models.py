@@ -7,15 +7,14 @@ class BotUser(models.Model):
     name = models.CharField(max_length=255)
     surname = models.CharField(max_length=255, blank=True, null=True)
     username = models.CharField(max_length=255, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
 
-class Filial(models.Model):
+class Filial(models.Model):  # models.Model qayta yozilmaydi
     name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -45,6 +44,7 @@ class Fanlar(models.Model):
     name = models.CharField(max_length=255)
     yonalishlar = models.ForeignKey(Yonalishlar, on_delete=models.SET_NULL, null=True, related_name="fanlar")
     created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

@@ -18,7 +18,7 @@ class FeedbackViewSet(viewsets.ModelViewSet):
 
 
 class FilialViewSet(viewsets.ModelViewSet):
-    queryset = Filial.objects.all()
+    queryset = Filial.objects.filter(is_active=True)
     serializer_class = FilialSerializer
 
 
@@ -44,7 +44,7 @@ class YonalishlarViewSet(viewsets.ModelViewSet):
 
 
 class FanlarViewSet(viewsets.ModelViewSet):
-    queryset = Fanlar.objects.all()
+    queryset = Fanlar.objects.filter(is_active=True)
     serializer_class = FanlarSerializer
 
 

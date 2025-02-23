@@ -102,11 +102,17 @@ async def message_handler(event):
 
             elif message.startswith("🖋 "):
                 fan = message[2:].strip()
+                price_data = {item['fan']['name']: item for item in get_price()}  # Dictionary formatiga o'tkazamiz
                 for yonalish, fanlar in get_yonalishlar().items():
                     if fan in fanlar:
+                        price_fan = price_data.get(fan, None)
+                        if price_fan is not None:
+                            price = price_data[fan].get('price', None)
+                        else:
+                            price = "Narxi korsatilmagan"
                         await event.respond(
                             f"✅ Siz {fan} kursiga yozildingiz.\n"
-                            f"Narxi: {PRICES.get(yonalish, 'Narxi belgilanmagan')}\n\n"
+                            f"Narxi: {price}\n\n"
                             "Tez orada operatorlarimiz siz bilan bog'lanishadi.",
                             buttons=get_back_button()
                         )
