@@ -7,15 +7,15 @@ import asyncio
 ACCOUNTS = [
     {
         "session_name": "session1",
-        "api_id": "21300124",
-        "api_hash": "ba1928901f7c9c75ecbffdd5a523280a",
-        "phone": "+998908302885"
+        "api_id": "",
+        "api_hash": "",
+        "phone": ""
     },
     {
         "session_name": "session_name",
-        "api_id": "27668593",
-        "api_hash": "db44de3510fb53c30375bfce090989d9",
-        "phone": "+998999992334"
+        "api_id": "",
+        "api_hash": "",
+        "phone": ""
     },
 
     # Yana hisob qo‘shmoqchi bo‘lsangiz, shu tarzda davom ettiring
